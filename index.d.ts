@@ -79,6 +79,8 @@ declare module "merapi" {
         [i : string] : Function;
     }
 
+    export type Klass<T> = { new(): T };
+
     /**
      * Simple Injectable Component
      */
@@ -93,7 +95,11 @@ declare module "merapi" {
          */
         constructor ();
 
-        static mixin<T>(klass : {new(): T}) : IClass<Component & T>;
+
+        static mixins<C1>(klasses: [Klass<C1>]): IClass<Component & C1>;
+        static mixins<C1, C2>(klasses: [Klass<C1>, Klass<C2>]): IClass<Component & C1 & C2>;
+        static mixins<C1, C2, C3>(klasses: [Klass<C1>, Klass<C2>, Klass<C3>]): IClass<Component & C1 & C2 & C3>;
+        static mixins<C1, C2, C3, C4>(klasses: [Klass<C1>, Klass<C2>, Klass<C3>, Klass<C4>]): IClass<Component & C1 & C2 & C3 & C4>;
     }
 
     export interface IAsyncEmitter<T> {
